@@ -24,12 +24,17 @@ const DestroyButton = styled.button`
 `
 
 class ToDoList extends Component {
+    apiUrl = "https://5c01dd5ad526f900134722f2.mockapi.io/todo_list";
+
+    componentDidMount = () => {
+      fetch(this.apiUrl)
+        .then(resp => resp.json())
+        .then(json => this.setState({tasks: json}));
+    }
+
     static defaultProps = {
         title: "Mu stuff list",
-        tasks: [
-            { done: true, text: 'Record a ReactJS video' }, 
-            { done: false, text: "Go for a walk" }
-        ]
+        tasks: []
     }
 
     state = {
@@ -43,7 +48,7 @@ class ToDoList extends Component {
   
     addToDo = () => { 
       const { draft }  = this.state;
-      this.setState(prevState => ({tasks: [...prevState.tasks, {text: draft}], draft: ''}));
+      this.setState(prevState => ({tasks: [...prevState.tasks, {content: draft, done: false}], draft: ''}));
     }
 
     removeAll = () => {
@@ -57,7 +62,7 @@ class ToDoList extends Component {
       <Container>
         <Header>{ title }</Header>
         <DestroyButton onClick={this.removeAll}>Remove all tasks</DestroyButton>
-        { tasks.map(task => <ToDoItem text={task.text} done={task.done}/>) }
+        { tasks.map(task => <ToDoItem text={task.content} done={task.done}/>) }
         <NewToDoForm 
           onSubmit={this.addToDo}
           onChange={this.updateDraft}
