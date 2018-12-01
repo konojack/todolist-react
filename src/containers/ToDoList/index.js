@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ToDoItem from '../../components/ToDoItem';
 import NewToDoForm from '../../components/NewToDoForm';
+import * as toDoItemApi from '../../helpers/toDoItemApi';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -26,10 +27,9 @@ const DestroyButton = styled.button`
 class ToDoList extends Component {
     apiUrl = "https://5c01dd5ad526f900134722f2.mockapi.io/todo_list";
 
-    componentDidMount = () => {
-      fetch(this.apiUrl)
-        .then(resp => resp.json())
-        .then(json => this.setState({tasks: json}));
+    componentDidMount = async () => {
+      const tasks = await toDoItemApi.getAll();
+      this.setState({tasks: tasks});
     }
 
     static defaultProps = {
@@ -62,7 +62,7 @@ class ToDoList extends Component {
       <Container>
         <Header>{ title }</Header>
         <DestroyButton onClick={this.removeAll}>Remove all tasks</DestroyButton>
-        { tasks.map(task => <ToDoItem text={task.content} done={task.done}/>) }
+        { tasks.map((task, index) => <ToDoItem key={index} text={task.content} done={task.done}/>) }
         <NewToDoForm 
           onSubmit={this.addToDo}
           onChange={this.updateDraft}
