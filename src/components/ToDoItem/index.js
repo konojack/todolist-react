@@ -12,22 +12,16 @@ const Item = styled.div`
 `
 
 class ToDoItem extends Component {
-    static defaultProps = {
-      done: false
-    }
-    state = {
-      done: this.props.done
-    }
   
-    toggleDone = () => {
-      this.setState({done: !this.state.done});
-    }
+    toggleDone = () => this.props.toggleDone(this.props.id);
+    destroy = () => this.props.destroy(this.props.id);
   
     render() {
-      const { text } = this.props
+      const { text, done } = this.props
       return (
-        <Item onClick={this.toggleDone} done={this.state.done}>
-          <p>{text}</p>
+        <Item done={done}>
+          <div onClick={this.toggleDone}>{text}</div>
+          <button onClick={this.destroy}>X</button>
         </Item>
       )
     }
