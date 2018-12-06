@@ -5,15 +5,6 @@ import * as toDoItemApi from '../../helpers/toDoItemApi';
 import * as _ from 'ramda';
 import styled from 'styled-components';
 
-const Container = styled.div`
-  background: #2b2e39;
-  margin: 0 auto;
-  width: 80%;
-  max-width: 600px;
-  padding: 14px;
-  border-radius: 14px;
-  margin-top: 14px;
-`
 const Header = styled.h1`
   color: #fff;
 `
@@ -26,8 +17,6 @@ const DestroyButton = styled.button`
 `
 
 class ToDoList extends Component {
-    apiUrl = "https://5c01dd5ad526f900134722f2.mockapi.io/todo_list";
-
     componentDidMount = async () => {
       const tasks = await toDoItemApi.getAll();
       this.setState({tasks: tasks});
@@ -87,7 +76,7 @@ class ToDoList extends Component {
       const { title } = this.props;
       const { tasks, draft } = this.state;
       return (
-      <Container>
+      <div>
         <Header>{ title }</Header>
         <DestroyButton onClick={this.removeAll}>Remove all tasks</DestroyButton>
         { tasks.map((task) => 
@@ -104,7 +93,7 @@ class ToDoList extends Component {
           onChange={this.updateDraft}
           draft={ draft }
         />
-      </Container>
+      </div>
       )
     }
   }
