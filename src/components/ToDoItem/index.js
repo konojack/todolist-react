@@ -7,6 +7,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   text-decoration-line: none;
   margin-left: 5px;
+  display: inline-block;
 
   &:hover {
     color: #fff;
