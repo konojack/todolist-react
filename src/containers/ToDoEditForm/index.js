@@ -10,7 +10,6 @@ import {
     ErrorMsg
   } from '../../helpers/theme'
 import * as _ from 'ramda'
-import { runInThisContext } from 'vm';
 
 
 class ToDoEditForm extends Component {

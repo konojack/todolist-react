@@ -9,7 +9,7 @@ export const SubmitButton = styled.button`
   border-radius: 10px;
   padding: 5px;
   color: #fff;
-  margin-bottom: 10px;
+  margin: 10px;
   background: #232632;
 `
 
